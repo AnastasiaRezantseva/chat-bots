@@ -3,7 +3,7 @@ import bot.telegram_client
 import bot.database_client
 from bot.handlers.handler import Handler
 from bot.handlers.handler import HandlerStatus
-
+from bot.keyboards.order_keyboards import pizza_keyboard
 
 class MessageStart(Handler):
     def can_handle(self, update: dict, state: str, data: dict) -> bool:
@@ -28,29 +28,6 @@ class MessageStart(Handler):
         bot.telegram_client.sendMessage(
             chat_id=update["message"]["chat"]["id"],
             text="Please choose pizza name",
-            reply_markup=json.dumps(
-                {
-                    "inline_keyboard": [
-                        [
-                            {"text": "Margherita", "callback_data": "pizza_margherita"},
-                            {"text": "Pepperoni", "callback_data": "pizza_pepperoni"},
-                        ],
-                        [
-                            {
-                                "text": "Quattro Stagioni",
-                                "callback_data": "pizza_quattro_stagioni",
-                            },
-                            {
-                                "text": "Capricciosa",
-                                "callback_data": "pizza_capricciosa",
-                            },
-                        ],
-                        [
-                            {"text": "Diavola", "callback_data": "pizza_diavola"},
-                            {"text": "Prosciutto", "callback_data": "pizza_prosciutto"},
-                        ],
-                    ],
-                },
-            ),
-        )
+            reply_markup= pizza_keyboard(),
+            )
         return HandlerStatus.STOP
