@@ -6,7 +6,7 @@ from bot.handlers.handler import Handler, HandlerStatus
 from bot.keyboards.order_keyboards import size_keyboard
 
 class PizzaSelectionHandler(Handler):
-    def can_handle(self, update: dict, state: str, data: dict) -> bool:
+    def can_handle(self, update: dict, state: str, order_json: dict) -> bool:
         if "callback_query" not in update:
             return False
 

@@ -4,6 +4,7 @@ from bot.handlers.ensure_user_exists import EnsureUserExists
 from bot.handlers.message_start import MessageStart
 from bot.handlers.pizza_selection import PizzaSelectionHandler
 from bot.handlers.pizza_size import PizzaSizeHandler
+from bot.handlers.pizza_drinks import PizzaDrinksHandler
 
 def get_handlers() -> list[Handler]:
     return[
@@ -12,4 +13,5 @@ def get_handlers() -> list[Handler]:
         MessageStart(),
         PizzaSelectionHandler(),
         PizzaSizeHandler(),
+        PizzaDrinksHandler(),
     ]

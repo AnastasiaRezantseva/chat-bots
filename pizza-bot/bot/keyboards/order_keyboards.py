@@ -67,3 +67,16 @@ def drinks_keyboard() -> dict:
                         ],
                     ],
     }
+
+def check_order_keyboard() -> dict:
+    return{
+        "inline_keyboard": [
+                        [
+                            {"text": "✅ Ok", "callback_data": "order_approve"},
+                            {
+                                "text": "🔄 Start again",
+                                "callback_data": "order_restart",
+                            },
+                        ],
+                    ],
+    }
