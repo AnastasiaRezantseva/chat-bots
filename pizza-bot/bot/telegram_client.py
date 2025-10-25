@@ -5,14 +5,12 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-
-# ** можем передать любой параметр
 def makeRequest(method: str, **param) -> dict:
-    json_data = json.dumps(param).encode("utf-8")  # data = {"offset: offset"}
+    json_data = json.dumps(param).encode("utf-8")
 
     request = urllib.request.Request(
         method="POST",
-        url=f'{os.getenv("TELEGRAM_BASE_URI")}/{method}',  # создание url, getenv - получение токена (переменной окружения)
+        url=f'{os.getenv("TELEGRAM_BASE_URI")}/{method}',
         data=json_data,
         headers={"Content-Type": "application/json"},
     )
@@ -21,13 +19,12 @@ def makeRequest(method: str, **param) -> dict:
     with urllib.request.urlopen(request) as response:
         response_body = response.read().decode(
             "utf-8"
-        )  # with - гарантирует закрытое соединение, read - читает байты, decode - декодирует байты в строку
-        response_json = json.loads(response_body)  # преоразует json в dict
+        )
+        response_json = json.loads(response_body)
         assert response_json["ok"] == True
-        return response_json["result"]  # возвращает массив обновлений
+        return response_json["result"]  
 
 
-# возвращает словарь (в c++ map (key: value))
 def getUpdates(**params) -> dict:
     return makeRequest("getUpdates", **params)
 
@@ -37,3 +34,9 @@ def sendMessage(chat_id: int, text: str, **params) -> dict:
 
 def getMe() -> dict:
     return makeRequest("getMe")
+
+def answerCallbackQuery(callback_query_id: str, **params) -> dict:
+    return makeRequest("answerCallbackQuery", callback_query_id=callback_query_id, **params)
+
+def deleteMessage(chat_id: int,message_id : int, **params) -> dict:
+    return makeRequest("deleteMessage", chat_id=chat_id,message_id=message_id, **params)
