@@ -43,7 +43,6 @@ class PizzaDrinksHandler(Handler):
             message_id=update["callback_query"]["message"]["message_id"],
         )
 
-        # Create order summary message
         pizza_name = order_json.get("pizza_name", "Unknown")
         pizza_size = order_json.get("pizza_size", "Unknown")
         drink = order_json.get("drink", "Unknown")
